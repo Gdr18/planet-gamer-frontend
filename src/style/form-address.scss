@@ -1,0 +1,32 @@
+.address-container {
+    padding: 20px;
+    background-color: $gris-mas-claro;
+    border-radius: 3px;
+
+    .form-address-wrapper {
+        display: grid;
+        gap: 10px;
+        width: 100%;
+        input {
+            @include input();
+        }
+        .one-column {
+            @include one-column();
+        }
+        .two-column {
+            @include two-column();
+        }
+        .button-direction {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            button {
+                margin-top: 20px;
+                padding: 5px;
+                width: 100px;
+                @include button-checkout();
+            }
+        }
+    }
+}

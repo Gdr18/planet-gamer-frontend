@@ -1,0 +1,66 @@
+.items-basket-wrapper {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 5px;
+    position: absolute;
+    right: 15px;
+    top: 65px;
+    @include white-shadow();
+    @include background-black-grey();
+    .basket-title {
+        color: $verde-marca;
+        font-family: 'Creepster', sans-serif;
+        font-size: 1.2em;
+    }
+    .item-wrapper {
+        background-color: $gris-claro;
+        border-radius: 2px;
+        .item-container {
+            width: 350px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            img {
+                width: 10%;
+                height: 45px;
+                object-fit: cover;
+            }
+            .title-item {
+                font-size: .8em;
+                max-width: 110px;
+                text-overflow: hidden;
+                color: $gris-fuerte;
+            }
+            .delete-icon {
+                @include icon2();
+            }
+        }
+    }
+    .total-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button {
+            width: 120px;
+            height: 35px;
+            @include button ()
+        }
+    }
+    .empty-basket {
+        padding: 10px;
+        color: $morado;
+        font-size: .9em;
+    }
+}
+
+@media (max-width: 700px) {
+    .items-basket-wrapper {
+        width: 100%;
+        right: 0px;
+    }
+}
