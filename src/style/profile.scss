@@ -138,6 +138,11 @@
             }
             .form-wrapper {
                 padding: 5px;
+                .orders-wrapper {
+                    .order-item {
+                        font-size: .7em;
+                    }
+                }
             }
         }
     }

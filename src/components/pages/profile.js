@@ -181,7 +181,7 @@ export default function Profile() {
                                             <span>{`#${order.id}`}</span>
                                             <div className='divs'>Fecha: <span>{date}</span></div>
                                             <div className='divs'>Artículos: <span>{order.qty}</span></div>
-                                            <div className='divs'>Importe: <span>{order.total}</span>€</div>
+                                            <div className='divs'>Importe: <span>{Math.floor(order.total * 100) / 100}</span>€</div>
                                         </div>
                                     )
                                 })
