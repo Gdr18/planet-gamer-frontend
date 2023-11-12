@@ -51,10 +51,7 @@ export default function Checkout() {
             <Navigation />
             <div className='wrapper'>
                 {steps === 1 ? (
-                <div className='address-container'>
-                    <div className='title-checkout'>Datos Envío</div>
-                    <FormAddress user={user} setUser={setUser} address={address} setAddress={setAddress} loggedUser={loggedUser} setSteps={setSteps}/>
-                </div>
+                <FormAddress user={user} setUser={setUser} address={address} setAddress={setAddress} loggedUser={loggedUser} setSteps={setSteps}/>
                 ) : null}
 
                 {steps === 2 ? (
