@@ -41,7 +41,7 @@ export default function Basket({ handleIconLogin, setMessageRegister, handleIcon
                 )})}
                 {basketItems.length ? (
                 <div className="total-wrapper">
-                    <div>{`Total: ${Math.ceil(total * 100) / 100}€`}</div>
+                    <div>{`Total: ${Math.floor(total * 100) / 100}€`}</div>
                     <button onClick={() => handlePurchaseBotton()}>Tramitar pedido</button>
                 </div>
                 ) : null}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import Navigation from '../navigation/navigation';
+import Footer from '../footer';
 
 import SaturnoIcon from '../icons/saturno-icon';
 import { TfiInstagram, TfiTwitter, TfiLinkedin } from 'react-icons/tfi'
@@ -37,6 +38,7 @@ export default function Contact() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

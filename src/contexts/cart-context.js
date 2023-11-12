@@ -28,7 +28,6 @@ export const CartProvider = ({ children }) => {
                 item.id === game.id ? { ...item, qty: item.qty + 1 } : item);
             setTotal(total + game.price * game.qty);
             setCountProducts(countProducts + game.qty)
-            putBasketDB(game);
             return setBasketItems([...games]);
         }
         setTotal(total + game.price * game.qty);

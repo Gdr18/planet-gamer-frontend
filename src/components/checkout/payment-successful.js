@@ -17,7 +17,7 @@ export default function PaymentSuccessful({ order }) {
                     <div>El pago del pedido <span>#{order.id}</span> ha sido realizado con éxito!</div>
                     <HiOutlineRocketLaunch className='icon-rocket'/>
                 </div>
-                <div className='total-success'><span>Importe: </span>{`${Math.ceil(order.total * 100) / 100}€`}</div>
+                <div className='total-success'><span>Importe: </span>{`${Math.floor(order.total * 100) / 100}€`}</div>
                 <div className='thanks'>Gracias por comprar en Planet Gamer!</div>
             </div>     
         </div>

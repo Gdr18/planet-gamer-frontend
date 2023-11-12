@@ -74,7 +74,7 @@ export default function Checkout() {
                                 )
                             })}
                             <div className='total-wrapper'>
-                                <div>{`Total: ${Math.ceil(total * 100) / 100}€`}</div>
+                                <div>{`Total: ${Math.floor(total * 100) / 100}€`}</div>
                             </div>
                         </div>
 

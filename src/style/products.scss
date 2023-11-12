@@ -2,7 +2,7 @@
 
 .spinner-class {
     width: 100vw;
-    height: 80vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
     .products-box {
         max-width: 2000px;
         width: 80%;
@@ -38,8 +39,8 @@
                 .checkbox {
                     animation:scale-up-top-left 0.4s;
                     position: absolute;
-                    top: 190px;
-                    left: 15px;
+                    top: 180px;
+                    left: 120px;
                     border-radius: 5px;
                     @include white-shadow();
                     @include background-black-grey();

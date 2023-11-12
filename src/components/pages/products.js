@@ -106,10 +106,10 @@ export default function Products() {
                             )
                         })
                     }</div>
-                    <Footer />
                 </div>
             )} 
             </div>
+            {!loading ? <Footer /> : null}
         </div>
     )
 }

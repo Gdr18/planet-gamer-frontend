@@ -4,7 +4,7 @@
     display: flex;
     justify-content: center;
     .game-page-wrapper {
-        max-width: 800px;
+        width: 750px;
         margin: 70px 0px;
         height: 550px;
         @include white-shadow();
@@ -47,7 +47,7 @@
                 margin-bottom: 30px;
             }
             .description-wrapper {
-                width: 350px;
+                width: 400px;
                 font-size: .9em;
             }
         }

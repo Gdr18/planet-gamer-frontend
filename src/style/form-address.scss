@@ -1,8 +1,14 @@
 .address-container {
-    padding: 20px;
-    background-color: $gris-mas-claro;
-    border-radius: 3px;
-
+        width: 700px;
+        height: 370px;
+        @include white-shadow();
+        padding: 20px;
+        background-color: $gris-mas-claro;
+        border-radius: 3px;
+        .title-checkout {
+            color: $gris-fuerte;
+            margin-top: 0;
+        }
     .form-address-wrapper {
         display: grid;
         gap: 10px;
