@@ -1,5 +1,7 @@
-# React/Redux/Router Starter Project
+# Frontend Planet Gamer. Proyecto final Full Stack Course by Bottega.
 
-> Provided for the students of the [Bottega Code School](https://bottega.tech/)
+En components/pages se encuentran las diferentes páginas de la app. 
 
-*Fork from [es6-webpack2-starter](https://github.com/micooz/es6-webpack2-starter)*
+En components también están ordenados en carpetas los diferentes componentes que se han utilizado en cada página.
+
+En src/contexts se encuentran los useContexts del carrito y del login.
