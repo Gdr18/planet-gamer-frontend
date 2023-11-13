@@ -95,11 +95,11 @@ export default function Login ({ handleIconLogin, messageRegister }) {
                 ) : null}
 
                 {loggedUser !== "" ? (
-                    <div className='login-profile'>
-                        <div className='welcome-title'>Bienvenido/a {loggedUser.name}</div>
-                        <Link to={`/profile/${loggedUser.password}`} className='profile-title'>Perfil</Link>
-                        <div className='logout-title' onClick={handleClickLogout}>Logout</div>
-                    </div>
+                <div className='login-profile'>
+                    <div className='welcome-title'>Bienvenido/a {loggedUser.name}</div>
+                    <Link to={`/profile/${loggedUser.password}`} className='profile-title'>Perfil</Link>
+                    <div className='logout-title' onClick={handleClickLogout}>Logout</div>
+                </div>
                 ) : null }
             </div>
     );

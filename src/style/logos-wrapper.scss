@@ -1,6 +1,6 @@
 @keyframes rotate-scale-down{0%{transform:scale(1) rotateZ(0)}50%{transform:scale(.5) rotateZ(180deg)}100%{transform:scale(1) rotateZ(360deg)}}
 @keyframes scale-up-top{0%{transform:scale(.5);transform-origin:center top}100%{transform:scale(1);transform-origin:center top}}
-.platforms-wrapper {
+.platforms-wrapper, .platforms-wrapper-responsive {
     width: 50%;
     display: flex;
     justify-content: space-around;
@@ -55,15 +55,21 @@
         top: 65px;
         @include background-black-grey();
         @include white-shadow();
-        animation:scale-up-top 0.4s;
+        animation:scale-up-top 0.2s;
+        border-radius: 3px;
         .logos-wrapper {
             display: flex;
             align-items: center;
             height: 50px;
-            .span-catch {
+            &:hover span {
+                transform: none;
+                opacity: 1;
+            }
+            span {
                 color: $verde-marca;
                 font-family: 'Creepster', sans-serif;
                 font-size: 1.4em;
+                transition: .3s ease-in-out;
                 &:hover {
                     color: $morado;
                 }

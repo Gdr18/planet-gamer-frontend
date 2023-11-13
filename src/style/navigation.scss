@@ -34,18 +34,22 @@
         display: flex;
         align-items: center;
         min-width: 250px;
+
         .menu-icon {
             display: none;
         }
+
         a:nth-child(2) {
             font-family: 'Creepster';
             color: $verde-marca;
             font-size: 2em;
             padding: 15px;
+
             &:hover {
                 cursor: pointer;
             }
         }
+
         a:nth-child(3) {
             &:hover {
                 cursor: pointer;
@@ -94,11 +98,21 @@
 }
 
 .fade-enter {
-    animation: blur-in-expand 0.3s linear both;
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 200ms;
 }
 
 .fade-exit {
-    animation: blur-out-contract 0.3s linear both;
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 200ms;
 }
 
 @media (max-width: 700px) {
@@ -106,15 +120,18 @@
         .branding {
             display: flex;
             align-items: center;
+
             &:hover {
                 color: $verde-hover;
             }
+
             .menu-icon {
                 display: flex;
                 margin-left: 10px;
                 margin-right: 10px;
                 @include icon();
             }
+
             a:nth-child(2) {
                 display: none;
             }
