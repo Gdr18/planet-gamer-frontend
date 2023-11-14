@@ -12,7 +12,7 @@ import { useLoginContext } from '../../contexts/login-context';
 import { useCartContext } from '../../contexts/cart-context';
 
 export default function Profile() {
-    const { loggedUser, handleLogout, setLoggedUser } = useLoginContext()
+    const { loggedUser, handleLogout } = useLoginContext()
     const { cleaningBasket } = useCartContext()
 
     const history = useHistory();
@@ -37,6 +37,13 @@ export default function Profile() {
     })
 
     const [ordersUser, setOrdersUser] = useState([]);
+
+    useEffect(() => {
+        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, { withCredentials: true })
+            .then(response => {
+                setUserForm(response.data);
+            })
+    }, [])
 
     useEffect(() => {
         axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address-user/${loggedUser.id}`, { withCredentials: true })
