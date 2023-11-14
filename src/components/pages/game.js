@@ -19,7 +19,7 @@ export default function Game() {
     useEffect(() => gettingGame(), [])
 
     const gettingGame = () => {
-        axios.get(`http://localhost:5000/game/${idGame}`, { withCredentials: true }).then(response => {
+        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/game/${idGame}`, { withCredentials: true }).then(response => {
             setGameComplete(response.data);
             setLoading(false);
         }).catch(error => {

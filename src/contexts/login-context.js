@@ -12,7 +12,7 @@ export const LoginProvider = ({ children }) => {
 
     const rescuingUser = (user) => {
         axios
-        .get(`http://127.0.0.1:5000/user/${user}`, { 
+        .get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${user}`, { 
             withCredentials: true 
         })
         .then(response => {
@@ -25,7 +25,7 @@ export const LoginProvider = ({ children }) => {
 
     const checkLoginStatus = () => {
         axios
-        .get("http://127.0.0.1:5000/login", {
+        .get("https://planet-gamer-backend-a5283f6df278.herokuapp.com/login", {
             withCredentials: true
         })
         .then(response => {
@@ -40,7 +40,7 @@ export const LoginProvider = ({ children }) => {
 
     const handleLogout = () => {
         axios
-        .delete("http://127.0.0.1:5000/login", { withCredentials: true })
+        .delete("https://planet-gamer-backend-a5283f6df278.herokuapp.com/login", { withCredentials: true })
         .then(response => {
             setLoggedUser("");
         })

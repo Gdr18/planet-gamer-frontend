@@ -60,7 +60,13 @@
 
 @media (max-width: 615px) {
     .items-basket-wrapper {
+        padding: 20px;
         width: 100%;
         right: 0px;
+        .item-wrapper {
+            .item-container {
+                width: 100%;
+            }
+        }
     }
 }

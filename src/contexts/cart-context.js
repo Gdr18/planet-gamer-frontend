@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
     useEffect(() => { getGames() }, [])
 
     const getGames = () => {
-        axios.get("http://localhost:5000/games", { withCredentials: true }).then(response => {
+        axios.get("https://planet-gamer-backend-a5283f6df278.herokuapp.com/games", { withCredentials: true }).then(response => {
             setAllGames(response.data);        
         }).catch(error => {
             console.log('An error ocurred', error);    

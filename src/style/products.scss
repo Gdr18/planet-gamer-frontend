@@ -129,6 +129,13 @@
             .products-wrapper {
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 10px;
+                .game-item {
+                    .game-img {
+                        button {
+                            width: 150px;
+                        }
+                    }
+                }
             }
         }
     }

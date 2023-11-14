@@ -39,7 +39,7 @@ export default function Profile() {
     const [ordersUser, setOrdersUser] = useState([]);
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/address-user/${loggedUser.id}`, { withCredentials: true })
+        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address-user/${loggedUser.id}`, { withCredentials: true })
             .then(response => {
                 if (Object.keys(response.data).length > 0) {
                     setAddressForm(response.data);
@@ -48,7 +48,7 @@ export default function Profile() {
     }, [])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/orders/${loggedUser.id}`, { withCredentials: true })
+        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/orders/${loggedUser.id}`, { withCredentials: true })
             .then(response => {
                 if (response.data.length) {
                     setOrdersUser(response.data);
@@ -58,7 +58,7 @@ export default function Profile() {
 
     const handleSubmitUser = (event) => {
         event.preventDefault();
-        axios.put(`http://localhost:5000/user/${loggedUser.id}`, userForm, { withCredentials: true })
+        axios.put(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, userForm, { withCredentials: true })
             .then(response => {
                 setEditUser(!editUser);
                 setUserForm({ ...response.data, password: "" });
@@ -84,7 +84,7 @@ export default function Profile() {
 
     const handleSubmitAddress = (event) => {
         event.preventDefault();
-        axios.post(`http://localhost:5000/address/${loggedUser.id}`, addressForm, { withCredentials: true })
+        axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address/${loggedUser.id}`, addressForm, { withCredentials: true })
             .then(response => {
                 setEditAddress(!editAddress);
                 setAddressForm(response.data);
@@ -100,7 +100,7 @@ export default function Profile() {
         if (confirmDelete) {
             handleLogout();
             cleaningBasket();
-            axios.delete(`http://localhost:5000/user/${loggedUser.id}`, { withCredentials: true })
+            axios.delete(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, { withCredentials: true })
                 .then(response => {
                     history.push('/');
                 })
@@ -159,7 +159,7 @@ export default function Profile() {
                                 <input disabled={editAddress} type='text' name='street' value={addressForm.street} onChange={handleChangeAddress} placeholder='Dirección Línea 1' required />
                             </div>
                             <div className='one-column'>
-                                <input disabled={editAddress} type='text' name='second_line_street' value={addressForm.second_line_street} onChange={handleChangeAddress} placeholder='Dirección Línea 2' required />
+                                <input disabled={editAddress} type='text' name='second_line_street' value={addressForm.second_line_street} onChange={handleChangeAddress} placeholder='Dirección Línea 2' />
                             </div>
                             <div className='two-column'>
                                 <input disabled={editAddress} type='number' maxLength='5' name='postal_code' value={addressForm.postal_code} onChange={handleChangeAddress} placeholder='Código Postal' required />

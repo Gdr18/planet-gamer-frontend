@@ -26,7 +26,7 @@ export default function Login ({ handleIconLogin, messageRegister }) {
     }
 
     const handleSubmitLogin = (event) => {
-        axios.post('http://127.0.0.1:5000/login', login, { withCredentials: true}).then(response => { 
+        axios.post('https://planet-gamer-backend-a5283f6df278.herokuapp.com/login', login, { withCredentials: true}).then(response => { 
             if (response.data.name === "") {
                 setSecondPhaseRegistration(true);
             } else {

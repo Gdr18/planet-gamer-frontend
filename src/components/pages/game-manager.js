@@ -23,7 +23,7 @@ export default function GameManager() {
         img: ""
     })
 
-    const [apiUrl, setApiUrl] = useState("http://localhost:5000/game");
+    const [apiUrl, setApiUrl] = useState("https://planet-gamer-backend-a5283f6df278.herokuapp.com/game");
     const [apiAction, setApiAction] = useState("post");
 
     const clearForm = () => {
@@ -49,7 +49,7 @@ export default function GameManager() {
         })
             .then(response => {
                 clearForm();
-                setApiUrl("http://localhost:5000/game");
+                setApiUrl("https://planet-gamer-backend-a5283f6df278.herokuapp.com/game");
                 setApiAction("post");
                 getGames();
             })
@@ -86,14 +86,14 @@ export default function GameManager() {
             img: img
         })
 
-        setApiUrl(`http://localhost:5000/game/${id}`);
+        setApiUrl(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/game/${id}`);
         setApiAction("put");
     }
 
     const handleDeleteClick = game => {
         axios
             .delete(
-                `http://localhost:5000/game/${game.id}`,
+                `https://planet-gamer-backend-a5283f6df278.herokuapp.com/game/${game.id}`,
                 { withCredentials: true }
             )
             .then(response => {

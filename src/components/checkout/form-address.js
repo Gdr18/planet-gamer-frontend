@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function FormAddress({ setSteps, user, setUser, address, setAddress, loggedUser }) {
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/address-user/${loggedUser.id}`, { withCredentials: true })
+        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address-user/${loggedUser.id}`, { withCredentials: true })
             .then(response => {
                 if (Object.keys(response.data).length > 0) {
                     setAddress(response.data)
@@ -16,7 +16,7 @@ export default function FormAddress({ setSteps, user, setUser, address, setAddre
     }, [])
 
     const puttingUser = () => {
-        axios.put(`http://localhost:5000/user/${loggedUser.id}`, user, { withCredentials: true })
+        axios.put(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, user, { withCredentials: true })
             .then(response => {
             })
             .catch(error => {
@@ -25,7 +25,7 @@ export default function FormAddress({ setSteps, user, setUser, address, setAddre
     }
 
     const postingAddress = () => {
-        axios.post(`http://localhost:5000/address/${loggedUser.id}`, address, { withCredentials: true })
+        axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address/${loggedUser.id}`, address, { withCredentials: true })
             .then(response => {
             })
             .catch(error => {
