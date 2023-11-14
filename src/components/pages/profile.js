@@ -12,7 +12,7 @@ import { useLoginContext } from '../../contexts/login-context';
 import { useCartContext } from '../../contexts/cart-context';
 
 export default function Profile() {
-    const { loggedUser, handleLogout } = useLoginContext()
+    const { loggedUser, handleLogout, rescuingUser } = useLoginContext()
     const { cleaningBasket } = useCartContext()
 
     const history = useHistory();
@@ -39,13 +39,6 @@ export default function Profile() {
     const [ordersUser, setOrdersUser] = useState([]);
 
     useEffect(() => {
-        axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, { withCredentials: true })
-            .then(response => {
-                setUserForm(response.data);
-            })
-    }, [])
-
-    useEffect(() => {
         axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address-user/${loggedUser.id}`, { withCredentials: true })
             .then(response => {
                 if (Object.keys(response.data).length > 0) {
@@ -68,7 +61,7 @@ export default function Profile() {
         axios.put(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, userForm, { withCredentials: true })
             .then(response => {
                 setEditUser(!editUser);
-                setUserForm({ ...response.data, password: "" });
+                rescuingUser(response.data.id);
             })
             .catch(error => {
                 console.log(error, "algo ha salido mal con el putting del user")
