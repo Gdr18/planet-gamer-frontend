@@ -15,7 +15,7 @@ export default function Basket({ handleIconLogin, setMessageRegister, handleIcon
     const handlePurchaseBotton = () => {
         if (loggedUser !== "") {
             setMessageRegister(false);
-            history.push(`/checkout/${loggedUser.password}`);
+            history.push(`/checkout/${loggedUser.id}`);
             handleIconBasket();
         } else {
             setMessageRegister(true);

@@ -23,9 +23,9 @@ export default function App() {
                     <Route path="/p/:platform" component={Products} />
                     <Route path="/g/:game" component={Game} />
                     <Route path="/contact" component={Contact} />
-                    {loggedUser ? (<Route path={`/profile/${loggedUser.password}`} component={Profile} />) : null}
-                    {loggedUser ? (<Route path={`/checkout/${loggedUser.password}`} component={Checkout} />) : null}
-                    {loggedUser.admin ? (<Route path={`/game-manager/${loggedUser.password}`} component={GameManager} />) : null}
+                    {loggedUser ? (<Route path={`/profile/${loggedUser.id}`} component={Profile} />) : null}
+                    {loggedUser ? (<Route path={`/checkout/${loggedUser.id}`} component={Checkout} />) : null}
+                    {loggedUser.admin ? (<Route path={`/game-manager/${loggedUser.id}`} component={GameManager} />) : null}
                     <Route component={NoMatch} />
                 </Switch>
             </Router>

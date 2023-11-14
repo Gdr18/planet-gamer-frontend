@@ -122,7 +122,7 @@ export default function Profile() {
                         {loggedUser.admin ? (
                             <div className='admin-wrapper'>
                                 <div>Admin User</div>
-                                <Link to={`/game-manager/${loggedUser.password}`}><div>Game Manager <TbEdit className='icon-edit'/></div></Link>
+                                <Link to={`/game-manager/${loggedUser.id}`}><div>Game Manager <TbEdit className='icon-edit'/></div></Link>
                             </div>
                         ) : null}
                     </div>
