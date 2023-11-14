@@ -12,7 +12,7 @@ import { useLoginContext } from '../../contexts/login-context';
 import { useCartContext } from '../../contexts/cart-context';
 
 export default function Profile() {
-    const { loggedUser, handleLogout } = useLoginContext()
+    const { loggedUser, handleLogout, setLoggedUser } = useLoginContext()
     const { cleaningBasket } = useCartContext()
 
     const history = useHistory();
@@ -62,6 +62,7 @@ export default function Profile() {
             .then(response => {
                 setEditUser(!editUser);
                 setUserForm({ ...response.data, password: "" });
+                setLoggedUser(response.data);
             })
             .catch(error => {
                 console.log(error, "algo ha salido mal con el putting del user")
