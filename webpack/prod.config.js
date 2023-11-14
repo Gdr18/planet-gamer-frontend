@@ -111,7 +111,7 @@ module.exports = webpackMerge(webpackCommon, {
           ie8: true
         }
       },
-      sourceMap: true
+      sourceMap: false
     }),
     new LoaderOptionsPlugin({
       options: {
