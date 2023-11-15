@@ -53,7 +53,10 @@ export default function CardForm({ setSteps, loggedUser, setOrder, order }) {
             setErrorText(error.message);
             setDisabledButton(false);
         } else {
-            axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/order/${loggedUser.id}`, order, { withCredentials: true })
+            axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/order/${loggedUser.id}`, {
+                total: total,
+                qty: countProducts
+            }, { withCredentials: true })
             .then(response => {
                 setCheckingCheckout(true);
                 cleaningBasket();
