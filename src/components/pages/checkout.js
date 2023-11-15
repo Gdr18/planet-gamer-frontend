@@ -15,7 +15,7 @@ import { useLoginContext } from '../../contexts/login-context';
 
 export default function Checkout() {
     const [steps, setSteps] = useState(1);
-    const { total, basketItems, countProducts, checkingCheckout } = useCartContext()
+    const { total, basketItems, checkingCheckout } = useCartContext()
 
     if (!checkingCheckout & !basketItems.length) {
         return <Home />
@@ -39,10 +39,7 @@ export default function Checkout() {
         city: ""
     })
 
-    const [order, setOrder] = useState({
-        total: total,
-        qty: countProducts
-    })
+    const [order, setOrder] = useState({});
 
     const [stripePromise, setStripePromise] = useState(() => loadStripe("pk_test_51O97l9LqjQuJhnt8PYq8qchak92C9CgWf1UUYUezOMVrMkhsDTu4xqoqiO5AYyZ0V9Q3482Dpm7e6VbTDJ5TJ3Xd00Fl6l5FgU"));
     

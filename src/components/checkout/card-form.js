@@ -9,7 +9,7 @@ export default function CardForm({ setSteps, loggedUser, setOrder, order }) {
     const stripe = useStripe();
     const elements = useElements();
 
-    const { cleaningBasket, setCheckingCheckout } = useCartContext()
+    const { cleaningBasket, setCheckingCheckout, countProducts, total } = useCartContext()
 
     const [errorText, setErrorText] = useState("");
     const [disabledButton, setDisabledButton] = useState(false);
@@ -37,6 +37,12 @@ export default function CardForm({ setSteps, loggedUser, setOrder, order }) {
 
     const handleSubmitCard = async (event) => {
         event.preventDefault();
+
+        setOrder({
+            total: total,
+            qty: countProducts
+        })
+
         setDisabledButton(true);
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: "card",
