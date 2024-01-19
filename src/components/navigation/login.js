@@ -62,6 +62,7 @@ export default function Login ({ handleIconLogin, messageRegister }) {
                         placeholder="Email"
                         value={login.email}
                         onChange={handleChange}
+                        maxLength={50}
                         required
                     />
 
@@ -71,6 +72,8 @@ export default function Login ({ handleIconLogin, messageRegister }) {
                         placeholder="Contraseña"
                         value={login.password}
                         onChange={handleChange}
+                        minLength={6}
+                        maxLength={200}
                         required
                     />
                     {messageRegister ? (<div>Necesitas registrarte para seguir con la compra.</div>) : null}
@@ -87,6 +90,8 @@ export default function Login ({ handleIconLogin, messageRegister }) {
                         placeholder="Nombre"
                         value={login.name}
                         onChange={handleChange}
+                        minLength={2}
+                        maxLength={50}
                         required
                     />
 

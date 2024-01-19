@@ -71,6 +71,10 @@
                 .one-column {
                     @include one-column();
                 }
+                .errorTag {
+                    color: $error;
+                    font-size: .8em;
+                }
                 input:enabled {
                     @include input();
                 }
@@ -86,12 +90,12 @@
                     }
                     .unsubscribe {
                         font-size: .8em;
-                        color: #bb3a3a;
+                        color: $error;
                         transition: .3s ease-in-out;
                         text-decoration: underline;
                         &:hover {
                             cursor: pointer;
-                            color: #e5424d;
+                            color: $error-hover;
                         }
                     }
                 }

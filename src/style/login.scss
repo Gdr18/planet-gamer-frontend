@@ -14,6 +14,7 @@
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 30px;
+        width: 450px;
         p {
             color: $verde-marca;
             font-size: 1.2em;
@@ -21,8 +22,8 @@
             font-family: 'Creepster', sans-serif;
         }
         input {
-            @include input ();
-            width: 300px;
+            @include input();
+            width: 100%;
         }
         button {
             width: 60px;
@@ -36,7 +37,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 350px;
+        width: 450px;
         .welcome-title {
             color: $gris-claro;
             padding: 10px;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 import axios from 'axios';
 
@@ -20,20 +21,24 @@ export default function Profile() {
     const [editUser, setEditUser] = useState(true)
     const [editAddress, setEditAddress] = useState(true)
 
-    const [addressForm, setAddressForm] = useState({
-        street: "",
-        second_line_street: "",
-        postal_code: "",
-        city: ""
-    });
+    const { register: registerUser, handleSubmit: handleSubmitUser, formState: {errors: errorsUser} } = useForm({
+        defaultValues: {
+            name: loggedUser.name,
+            surnames: loggedUser.surnames,
+            email: loggedUser.email,
+            password: "",
+            phone_number: loggedUser.phone_number,
+            admin: loggedUser.admin
+        }
+    })
 
-    const [userForm, setUserForm] = useState({
-        name: loggedUser.name,
-        surnames: loggedUser.surnames,
-        email: loggedUser.email,
-        password: "",
-        phone_number: loggedUser.phone_number,
-        admin: loggedUser.admin
+    const { register: registerAddress, handleSubmit: handleSubmitAddress, formState: {errors: errorsAddress}, reset } = useForm({
+        defaultValues: {
+            street: "",
+            second_line_street: "",
+            postal_code: "",
+            city: ""
+        }
     })
 
     const [ordersUser, setOrdersUser] = useState([]);
@@ -42,7 +47,12 @@ export default function Profile() {
         axios.get(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address-user/${loggedUser.id}`, { withCredentials: true })
             .then(response => {
                 if (Object.keys(response.data).length > 0) {
-                    setAddressForm(response.data);
+                    reset({
+                        street: response.data.street,
+                        second_line_street: response.data.second_line_street,
+                        postal_code: response.data.postal_code,
+                        city: response.data.city
+                    });
                 }
             })
     }, [])
@@ -56,43 +66,26 @@ export default function Profile() {
             })
     }, [])
 
-    const handleSubmitUser = (event) => {
-        event.preventDefault();
-        axios.put(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, userForm, { withCredentials: true })
-            .then(response => {
-                setEditUser(!editUser);
-                rescuingUser(response.data.id);
-            })
-            .catch(error => {
-                console.log(error, "algo ha salido mal con el putting del user")
-            })
-    }
+    const handleSubmitProfile = handleSubmitUser((data) => {
+        axios.put(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/user/${loggedUser.id}`, data, { withCredentials: true })
+        .then(response => {
+            setEditUser(!editUser);
+            rescuingUser(response.data.id);
+        })
+        .catch(error => {
+            console.log(error, "algo ha salido mal con el putting del user")
+        })
+    })
 
-    const handleChangeUser = (event) => {
-        setUserForm({
-            ...userForm,
-            [event.target.name]: event.target.value
-        });
-    }
-
-    const handleChangeAddress = (event) => {
-        setAddressForm({
-            ...addressForm,
-            [event.target.name]: event.target.value
-        });
-    }
-
-    const handleSubmitAddress = (event) => {
-        event.preventDefault();
-        axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address/${loggedUser.id}`, addressForm, { withCredentials: true })
+    const handleSubmitDirection = handleSubmitAddress((data) => {
+        axios.post(`https://planet-gamer-backend-a5283f6df278.herokuapp.com/address/${loggedUser.id}`, data, { withCredentials: true })
             .then(response => {
                 setEditAddress(!editAddress);
-                setAddressForm(response.data);
             })
             .catch(error => {
                 console.log(error, "algo ha salido mal con posting address")
             })
-    }
+    })
 
     const deletingUser = () => {
         let confirmDelete = confirm("Estás segurx de que quieres salir de nuestra órbita para siempre? 😔")
@@ -131,17 +124,112 @@ export default function Profile() {
                             <div className='universal-title'>Datos Personales</div>
                             <TbEdit className='edit-icon' onClick={() => setEditUser(!editUser)} />
                         </div>
-                        <form onSubmit={handleSubmitUser}>
+                        <form onSubmit={handleSubmitProfile}>
                             <div className='two-column'>
-                                <input disabled={editUser} type='text' name='name' value={userForm.name} onChange={handleChangeUser} placeholder='Nombre' required />
-                                <input disabled={editUser} type='text' name='phone_number' value={userForm.phone_number} onChange={handleChangeUser} placeholder='Teléfono' />
+                                <input
+                                type='text'
+                                {...registerUser("name", {
+                                    required: {
+                                        value: true,
+                                        message: "Nombre es requerido"
+                                    },
+                                    minLength: {
+                                        value: 2,
+                                        message: "Nombre debe tener al menos 2 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 50,
+                                        message: "Nombre debe tener como máximo 50 caracteres"
+                                    },
+                                    disabled: editUser
+                                })}
+                                placeholder='Nombre' />
+                                {
+                                    errorsUser.name && <div className='errorTag'>{errorsUser.name.message}</div>
+                                }
+
+                                <input
+                                type='number'
+                                {...registerUser("phone_number", {
+                                    minLength: {
+                                        value: 9,
+                                        message: "Teléfono debe tener 9 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 9,
+                                        message: "Teléfono debe tener 9 caracteres"
+                                    },
+                                    disabled: editUser
+                                })}
+                                placeholder='Teléfono' />
+
+                                {
+                                    errorsUser.phone_number && <div className='errorTag'>{errorsUser.phone_number.message}</div>
+                                }
                             </div>
                             <div className='one-column'>
-                                <input disabled={editUser} type='text' name='surnames' value={userForm.surnames} onChange={handleChangeUser} placeholder='Apellidos' />
+                                <input
+                                type='text'
+                                {...registerUser("surnames", {
+                                    minLength: {
+                                        value: 2,
+                                        message: "Apellidos debe tener al menos 2 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 40,
+                                        message: "Apellidos debe tener como máximo 40 caracteres"
+                                    },
+                                    disabled: editUser
+                                })}
+                                placeholder='Apellidos' />
+
+                                {
+                                    errorsUser.surnames && <div className='errorTag'>{errorsUser.surnames.message}</div>
+                                }
                             </div>
                             <div className='two-column'>
-                                <input disabled={editUser} type='email' name='email' value={userForm.email} onChange={handleChangeUser} placeholder='Email' required />
-                                <input disabled={editUser} type='password' name='password' value={userForm.password} onChange={handleChangeUser} placeholder="••••••••••" />
+                                <input
+                                type='email'
+                                {...registerUser("email", {
+                                    required: {
+                                        value: true,
+                                        message: "Email es requerido"
+                                    },
+                                    maxLength: {
+                                        value: 50,
+                                        message: "Email tiene que tener como máximo 50 caracteres"
+                                    },
+                                    pattern: {
+                                        value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                                        message: "Email no válido",
+                                    },
+                                    disabled: editUser
+                                })}
+                                placeholder='Email' />
+
+                                {
+                                    errorsUser.email && <div className='errorTag'>{errorsUser.email.message}</div>
+                                }
+
+                                <input
+                                type='password'
+                                {...registerUser("password", {
+                                    minLength: {
+                                        value: 6,
+                                        message: "Contraseña debe tener al menos 6 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 200,
+                                        message: "Contraseña debe tener como máximo 200 caracteres"
+                                    },
+                                    disabled: editUser
+                                })}
+                                placeholder="••••••••••" />
+
+                                {
+                                    errorsUser.password && <div className='errorTag'>{errorsUser.password.message}</div>
+                                }
+
                             </div>
                             <div className='button-wrapper'>
                                 <button disabled={editUser} type='submit'>Guardar</button>
@@ -154,16 +242,97 @@ export default function Profile() {
                             <div className='universal-title'>Dirección</div>
                             <TbEdit className='edit-icon' onClick={() => setEditAddress(!editAddress)} />
                         </div>
-                        <form onSubmit={handleSubmitAddress}>
+                        <form onSubmit={handleSubmitDirection}>
                             <div className='one-column'>
-                                <input disabled={editAddress} type='text' name='street' value={addressForm.street} onChange={handleChangeAddress} placeholder='Dirección Línea 1' required />
+                                <input 
+                                type='text'
+                                {...registerAddress("street", {
+                                    required: {
+                                        value: true,
+                                        message: "Dirección Línea 1 es requerido"
+                                    },
+                                    minLength: {
+                                        value: 2,
+                                        message: "Dirección Línea 1 debe tener al menos 2 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 100,
+                                        message: "Dirección Línea 1 debe tener como máximo 50 caracteres"
+                                    },
+                                    disabled: editAddress
+                                })}
+                                placeholder='Dirección Línea 1'/>
+
+                                {
+                                    errorsAddress.street && <div className='errorTag'>{errorsAddress.street.message}</div>
+                                }
                             </div>
                             <div className='one-column'>
-                                <input disabled={editAddress} type='text' name='second_line_street' value={addressForm.second_line_street} onChange={handleChangeAddress} placeholder='Dirección Línea 2' />
+                                <input 
+                                type='text'
+                                {...registerAddress("second_line_street", {
+                                    minLength: {
+                                        value: 2,
+                                        message: "Dirección Línea 2 debe tener al menos 2 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 50,
+                                        message: "Dirección Línea 2 debe tener como máximo 50 caracteres"
+                                    },
+                                    disabled: editAddress
+                                })} 
+                                placeholder='Dirección Línea 2' />
+
+                                {
+                                    errorsAddress.second_line_street && <div className='errorTag'>{errorsAddress.second_line_street.message}</div>
+                                }
                             </div>
                             <div className='two-column'>
-                                <input disabled={editAddress} type='number' maxLength='5' name='postal_code' value={addressForm.postal_code} onChange={handleChangeAddress} placeholder='Código Postal' required />
-                                <input disabled={editAddress} type='text' name='city' value={addressForm.city} onChange={handleChangeAddress} placeholder='Ciudad' required />
+                                <input 
+                                type='number'
+                                {...registerAddress("postal_code", {
+                                    required: {
+                                        value: true,
+                                        message: "Código Postal es requerido"
+                                    },
+                                    minLength: {
+                                        value: 5,
+                                        message: "Código Postal debe tener 5 números"
+                                    },
+                                    maxLength: {
+                                        value: 5,
+                                        message: "Código Postal debe tener 5 números"
+                                    },
+                                    disabled: editAddress
+                                })}
+                                placeholder='Código Postal' />
+                                
+                                {
+                                    errorsAddress.postal_code && <div className='errorTag'>{errorsAddress.postal_code.message}</div>
+                                }
+
+                                <input 
+                                type='text' 
+                                {...registerAddress("city", {
+                                    required: {
+                                        value: true,
+                                        message: "Ciudad es requerido"
+                                    },
+                                    minLength: {
+                                        value: 2,
+                                        message: "Ciudad debe tener al menos 2 caracteres"
+                                    },
+                                    maxLength: {
+                                        value: 40,
+                                        message: "Ciudad debe tener como máximo 40 caracteres"
+                                    },
+                                    disabled: editAddress
+                                })}
+                                placeholder='Ciudad'/>
+
+                                {
+                                    errorsAddress.city && <div className='errorTag'>{errorsAddress.city.message}</div>
+                                }
                             </div>
                             <div className='button-wrapper'>
                                 <button disabled={editAddress} type='submit'>Guardar</button>
