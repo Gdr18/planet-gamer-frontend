@@ -1,11 +1,8 @@
-# Frontend Planet Gamer. Proyecto final Full Stack Course by Bottega.
+# React + Vite
 
-Desde el login te puedes loguear y registrar.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-En components/pages se encuentran las diferentes páginas de la app. 
+Currently, two official plugins are available:
 
-En components también están ordenados en carpetas los diferentes componentes que se han utilizado en cada página.
-
-En src/contexts se encuentran los useContexts del carrito y del login.
-
-LoginProvider y CartProvider se encuentran en src/bootstrap.js
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
