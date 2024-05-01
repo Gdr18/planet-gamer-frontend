@@ -1,8 +1,23 @@
-# React + Vite
+# Planet Gamer Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend Planet Gamer, e-commerce de videojuegos. Proyecto final "Full Stack Course by DevCamp & Bottega University".
 
-Currently, two official plugins are available:
+<a href='https://planet-gamer-frontend.onrender.com'>https://planet-gamer-frontend.onrender.com</a>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Como compilador y empaquetador se ha utilizado Vite. 
+La app ha sido construida utilizando React, framework de JavaScript, utilizándose librerías como 'react-hook-form', 'axios', entre otras. Además se ha implementado Stripes para las compras. +
+Las funcionalidades implementadas son: un filtro para los productos, añadir o eliminar productos a la cesta del carrito, así como manejar el login y el logout por la parte del front end.
+
+Para desplegar el servidor de desarrollo:
+```
+npm run dev
+```
+
+Para desplegar el servidor de producción:
+```
+npm run build
+```
+seguido de:
+```
+npm run preview
+```
