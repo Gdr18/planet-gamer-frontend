@@ -13,7 +13,7 @@ import { FaUserAstronaut } from 'react-icons/fa'
 import { BsFillBasket3Fill } from 'react-icons/bs'
 import SaturnoIcon from '../icons/saturno-icon'
 
-export default function Navigation() {
+export default function NavBar() {
 	const [handlePlatforms, setHandlePlatforms] = useState(false)
 	const [loginActive, setLoginActive] = useState(false)
 	const [basketActive, setBasketActive] = useState(false)

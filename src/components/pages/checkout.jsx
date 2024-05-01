@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 import FormAddress from '../checkout/form-address'
 import CardForm from '../checkout/card-form'
@@ -47,7 +47,7 @@ export default function Checkout() {
 
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className='wrapper'>
 				{steps === 1 ? (
 					<FormAddress

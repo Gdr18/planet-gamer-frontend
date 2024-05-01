@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { RotatingLines } from 'react-loader-spinner'
 
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import { useCartContext } from '../../contexts/cart-context'
@@ -35,7 +35,7 @@ export default function Game() {
 
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className={loading ? 'spinner-class' : 'game-page-container'}>
 				{loading ? (
 					<RotatingLines

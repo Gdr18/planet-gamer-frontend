@@ -2,7 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 
 import GameSidebarList from '../games-manager/game-sidebar-list'
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import { useCartContext } from '../../contexts/cart-context'
@@ -118,7 +118,7 @@ export default function GameManager() {
 
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className='game-manager-container'>
 				<div className='game-manager-wrapper'>
 					<div className='left-column'>

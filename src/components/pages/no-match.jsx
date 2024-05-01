@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom'
 
 import { HiOutlineRocketLaunch } from 'react-icons/hi2'
 
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 export default function NoMatch() {
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className='no-match-container'>
 				<div className='no-match-wrapper'>
 					<h3>

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 
 import axios from 'axios'
 
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import { TbEdit } from 'react-icons/tb'
@@ -140,7 +140,7 @@ export default function Profile() {
 
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className='profile-wrapper'>
 				<div className='profile-container'>
 					<div className='profile-title-wrapper'>

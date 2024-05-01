@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import SaturnoIcon from '../icons/saturno-icon'
@@ -9,7 +9,7 @@ import { TfiInstagram, TfiTwitter, TfiLinkedin } from 'react-icons/tfi'
 export default function Contact() {
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className='contact-container'>
 				<div className='boxes'>
 					<div className='text universal'>

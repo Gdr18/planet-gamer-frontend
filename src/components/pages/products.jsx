@@ -5,7 +5,7 @@ import { RotatingLines } from 'react-loader-spinner'
 import { BsFilterLeft } from 'react-icons/bs'
 
 import Checkbox from '../products/checkbox'
-import Navigation from '../navigation/navigation'
+import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import { useCartContext } from '../../contexts/cart-context'
@@ -63,7 +63,7 @@ export default function Products() {
 
 	return (
 		<div>
-			<Navigation />
+			<NavBar />
 			<div className={loading ? 'spinner-class' : 'products-container'}>
 				{loading ? (
 					<RotatingLines
