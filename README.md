@@ -21,3 +21,5 @@ seguido de:
 ```
 npm run preview
 ```
+
+Actualmente sigue en construcción.
