@@ -14,7 +14,7 @@ export default function Game() {
 	const [gameComplete, setGameComplete] = useState({})
 	const [loading, setLoading] = useState(true)
 
-	const { handleAddProduct } = useCartContext()
+	const { handleProduct } = useCartContext()
 
 	useEffect(() => gettingGame(), [])
 
@@ -56,7 +56,7 @@ export default function Game() {
 								<div>{`PEGI: ${gameComplete.pegi}`}</div>
 							</div>
 							<h3>{`${gameComplete.price}€`}</h3>
-							<button onClick={() => handleAddProduct(gameComplete)}>
+							<button onClick={() => handleProduct(gameComplete)}>
 								Añadir
 							</button>
 						</div>

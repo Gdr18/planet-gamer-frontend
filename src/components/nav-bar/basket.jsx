@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { VscClose } from 'react-icons/vsc'
+import { VscClose, VscDiffRemoved, VscDiffAdded } from 'react-icons/vsc'
 
 import { useCartContext } from '../../contexts/cart-context'
 import { useLoginContext } from '../../contexts/login-context'
@@ -10,7 +10,7 @@ export default function Basket({
 	setMessageRegister,
 	handleIconBasket
 }) {
-	const { deleteGame, total, basketItems } = useCartContext()
+	const { deleteGame, total, basketItems, handleProduct } = useCartContext()
 	const { loggedUser } = useLoginContext()
 
 	const navigate = useNavigate()
@@ -35,11 +35,23 @@ export default function Basket({
 						<div key={game.id} className='item-wrapper'>
 							<div className='item-container'>
 								<img src={game.img} />
-								<div className='title-item'>{game.qty}</div>
+								<div className='qty-container'>
+									<VscDiffRemoved
+										className='basket-icon'
+										onClick={() => handleProduct(game, 'remove')}
+									/>
+									<span className='title-item'>{game.qty}</span>
+									<VscDiffAdded
+										className='basket-icon'
+										onClick={() => handleProduct(game)}
+									/>
+								</div>
 								<div className='title-item'>{game.title}</div>
-								<div className='title-item'>{`${game.price}€`}</div>
+								<div className='title-item'>{`${
+									Math.floor(game.price * game.qty * 100) / 100
+								}€`}</div>
 								<VscClose
-									className='delete-icon'
+									className='basket-icon'
 									onClick={() => deleteGame(game)}
 								/>
 							</div>
@@ -48,7 +60,7 @@ export default function Basket({
 				})}
 				{basketItems.length ? (
 					<div className='total-wrapper'>
-						<div>{`Total: ${Math.floor(total * 100) / 100}€`}</div>
+						<div>{`Total: ${Math.ceil(total * 100) / 100}€`}</div>
 						<button onClick={() => handlePurchaseBotton()}>
 							Tramitar pedido
 						</button>

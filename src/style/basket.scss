@@ -30,14 +30,23 @@
 				height: 45px;
 				object-fit: cover;
 			}
+			.qty-container {
+				display: flex;
+				align-items: center;
+				span {
+					padding: 5px;
+					font-size: .9em;
+				}
+			}
 			.title-item {
 				font-size: 0.8em;
 				max-width: 110px;
 				text-overflow: hidden;
 				color: $gris-fuerte;
 			}
-			.delete-icon {
+			.basket-icon {
 				@include icon2();
+				font-size: 1em;
 			}
 		}
 	}

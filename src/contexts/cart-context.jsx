@@ -29,18 +29,30 @@ export const CartProvider = ({ children }) => {
 			})
 	}
 
-	const handleAddProduct = game => {
-		if (basketItems.find(item => item.id === game.id)) {
+	const handleProduct = (game, operator = 'add') => {
+		if (operator === 'remove' && game.qty > 1) {
 			const games = basketItems.map(item =>
-				item.id === game.id ? { ...item, qty: item.qty + 1 } : item
+				item.id === game.id ? { ...item, qty: item.qty - 1 } : item
 			)
-			setTotal(total + game.price * game.qty)
-			setCountProducts(countProducts + game.qty)
-			return setBasketItems([...games])
+			setTotal(total - game.price)
+			setCountProducts(countProducts - 1)
+			setBasketItems([...games])
+		} else if (operator === 'remove' && game.qty === 1) {
+			deleteGame(game)
+		} else if (operator === 'add') {
+			if (basketItems.find(item => item.id === game.id)) {
+				const games = basketItems.map(item =>
+					item.id === game.id ? { ...item, qty: item.qty + 1 } : item
+				)
+				setTotal(total + game.price * game.qty)
+				setCountProducts(countProducts + 1)
+				setBasketItems([...games])
+			} else {
+				setTotal(total + game.price * game.qty)
+				setCountProducts(countProducts + 1)
+				setBasketItems([...basketItems, game])
+			}
 		}
-		setTotal(total + game.price * game.qty)
-		setCountProducts(countProducts + game.qty)
-		setBasketItems([...basketItems, game])
 	}
 
 	const deleteGame = game => {
@@ -62,7 +74,7 @@ export const CartProvider = ({ children }) => {
 				basketItems,
 				total,
 				countProducts,
-				handleAddProduct,
+				handleProduct,
 				deleteGame,
 				allGames,
 				cleaningBasket,

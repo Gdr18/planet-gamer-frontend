@@ -23,7 +23,7 @@ export default function Products() {
 	const [filterIcon, setFilterIcon] = useState(false)
 	const [loading, setLoading] = useState(true)
 
-	const { allGames, handleAddProduct } = useCartContext()
+	const { allGames, handleProduct } = useCartContext()
 
 	useEffect(() => {
 		renderingFirst()
@@ -124,7 +124,7 @@ export default function Products() {
 											<Link to={`/g/${game.id}`}>
 												<img src={game.img} />
 											</Link>
-											<button onClick={() => handleAddProduct(game)}>
+											<button onClick={() => handleProduct(game)}>
 												Añadir
 											</button>
 											<div className='title-price'>
