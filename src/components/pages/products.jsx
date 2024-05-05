@@ -9,6 +9,7 @@ import NavBar from '../nav-bar/nav-bar'
 import Footer from '../footer'
 
 import { useCartContext } from '../../contexts/cart-context'
+import { useLoginContext } from '../../contexts/login-context'
 
 export default function Products() {
 	const params = useParams()
@@ -23,7 +24,8 @@ export default function Products() {
 	const [filterIcon, setFilterIcon] = useState(false)
 	const [loading, setLoading] = useState(true)
 
-	const { allGames, handleProduct } = useCartContext()
+	const { allGames, handleGamesBasket } = useCartContext()
+	const { loggedUser } = useLoginContext()
 
 	useEffect(() => {
 		renderingFirst()
@@ -124,7 +126,9 @@ export default function Products() {
 											<Link to={`/g/${game.id}`}>
 												<img src={game.img} />
 											</Link>
-											<button onClick={() => handleProduct(game)}>
+											<button
+												onClick={() => handleGamesBasket(game, loggedUser.id)}
+											>
 												Añadir
 											</button>
 											<div className='title-price'>

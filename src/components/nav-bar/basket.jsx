@@ -10,7 +10,8 @@ export default function Basket({
 	setMessageRegister,
 	handleIconBasket
 }) {
-	const { deleteGame, total, basketItems, handleProduct } = useCartContext()
+	const { total, basketItems, handleGamesBasket } =
+		useCartContext()
 	const { loggedUser } = useLoginContext()
 
 	const navigate = useNavigate()
@@ -38,21 +39,23 @@ export default function Basket({
 								<div className='qty-container'>
 									<VscDiffRemoved
 										className='basket-icon'
-										onClick={() => handleProduct(game, 'remove')}
+										onClick={() =>
+											handleGamesBasket(game, loggedUser.id, 'remove')
+										}
 									/>
 									<span className='title-item'>{game.qty}</span>
 									<VscDiffAdded
 										className='basket-icon'
-										onClick={() => handleProduct(game)}
+										onClick={() => handleGamesBasket(game, loggedUser.id)}
 									/>
 								</div>
 								<div className='title-item'>{game.title}</div>
 								<div className='title-item'>{`${
-									Math.floor(game.price * game.qty * 100) / 100
+									Math.round(game.price * game.qty * 100) / 100
 								}€`}</div>
 								<VscClose
 									className='basket-icon'
-									onClick={() => deleteGame(game)}
+									onClick={() => handleGamesBasket(game, loggedUser.id, 'delete')}
 								/>
 							</div>
 						</div>
@@ -60,7 +63,7 @@ export default function Basket({
 				})}
 				{basketItems.length ? (
 					<div className='total-wrapper'>
-						<div>{`Total: ${Math.ceil(total * 100) / 100}€`}</div>
+						<div>{`Total: ${Math.round(total * 100) / 100}€`}</div>
 						<button onClick={() => handlePurchaseBotton()}>
 							Tramitar pedido
 						</button>

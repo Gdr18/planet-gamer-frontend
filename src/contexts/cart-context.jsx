@@ -28,54 +28,128 @@ export const CartProvider = ({ children }) => {
 				console.log('An error ocurred', error)
 			})
 	}
+	
+	const requestBasket = (game, idLoggedUser, methodHTTP) => {
+		axios({
+			method: methodHTTP,
+			url: `${import.meta.env.VITE_BACKEND_URL}/basket`,
+			data: {
+				qty: game.qty,
+				basket_game_id: game.id,
+				basket_user_id: idLoggedUser
+			},
+			withCredentials: true
+		})
+			.then(response => {
+				console.log(response.data, 'Request Basket Successfully')
+			})
+			.catch(error => {
+				console.log(error, 'error en la solicitud a basket')
+			})
+	}
 
-	const handleProduct = (game, operator = 'add') => {
+	const requestBaskets = (dataForm, methodHTTP) => {
+		axios({
+			method: methodHTTP,
+			url: `${import.meta.env.VITE_BACKEND_URL}/baskets`,
+			data: dataForm,
+			withCredentials: true
+		})
+			.then(response => {
+				console.log(response.data, 'Request Baskets Successfully')
+			})
+			.catch(error => {
+				console.log(error, 'error en la solicitud a basket')
+			})
+	}
+
+	const handleGamesBasket = (game, idLoggedUser, operator = 'add') => {
+		let basketGameQty = 0
 		if (operator === 'remove' && game.qty > 1) {
-			const games = basketItems.map(item =>
-				item.id === game.id ? { ...item, qty: item.qty - 1 } : item
-			)
+			const games = basketItems.map(item => {
+				if (item.id === game.id) {
+					basketGameQty = item.qty - 1
+					return { ...item, qty: item.qty - 1 }
+				} else {
+					return item
+				}
+			})
 			setTotal(total - game.price)
 			setCountProducts(countProducts - 1)
 			setBasketItems([...games])
-		} else if (operator === 'remove' && game.qty === 1) {
-			deleteGame(game)
+			idLoggedUser &&
+				requestBasket({ ...game, qty: basketGameQty }, idLoggedUser, 'put')
+		} else if ((operator === 'delete') || (operator === 'remove' && game.qty === 1)) {
+			const result = basketItems.filter(item => item.id !== game.id)
+			setTotal(total - Math.round(game.price * game.qty * 100) / 100)
+			setCountProducts(countProducts - game.qty)
+			setBasketItems(result)
+			idLoggedUser && requestBasket(game, idLoggedUser, 'delete')
 		} else if (operator === 'add') {
 			if (basketItems.find(item => item.id === game.id)) {
-				const games = basketItems.map(item =>
-					item.id === game.id ? { ...item, qty: item.qty + 1 } : item
-				)
-				setTotal(total + game.price * game.qty)
+				const games = basketItems.map(item => {
+					if (item.id === game.id) {
+						basketGameQty = item.qty + 1
+						return { ...item, qty: item.qty + 1 }
+					} else {
+						return item
+					}
+				})
+				setTotal(total + game.price * 1)
 				setCountProducts(countProducts + 1)
 				setBasketItems([...games])
+				idLoggedUser &&
+					requestBasket({ ...game, qty: basketGameQty }, idLoggedUser, 'put')
 			} else {
-				setTotal(total + game.price * game.qty)
+				setTotal(total + game.price * 1)
 				setCountProducts(countProducts + 1)
 				setBasketItems([...basketItems, game])
+				idLoggedUser && requestBasket(game, idLoggedUser, 'post')
 			}
 		}
-	}
-
-	const deleteGame = game => {
-		const result = basketItems.filter(item => item.id !== game.id)
-		setTotal(total - game.price * game.qty)
-		setCountProducts(countProducts - game.qty)
-		setBasketItems(result)
 	}
 
 	const cleaningBasket = () => {
 		setTotal(0)
 		setCountProducts(0)
 		setBasketItems([])
+	}	
+
+	const rescuingBasket = idLoggedUser => {
+		const data = basketItems.map(basketItem => {
+			return {
+                basket_user_id: idLoggedUser,
+                basket_game_id: basketItem.id,
+                qty: basketItem.qty
+            }
+		})
+		axios
+			.get(`${import.meta.env.VITE_BACKEND_URL}/games-basket/${idLoggedUser}`, {
+				withCredentials: true
+			})
+			.then(response => {
+				if (response.data.length && !basketItems.length) {
+					setBasketItems(response.data)
+					setCountProducts(response.data.reduce((a, b) => a.qty + b.qty))
+					setTotal(response.data.reduce((a, b) => a.price * a.qty + b.price * b.qty))
+				} else if (!response.data.length && basketItems.length) {
+					requestBaskets(data, 'post')
+				} else if (response.data.length && basketItems.length) {
+					requestBaskets({ basket_user_id: idLoggedUser }, 'delete')
+					requestBaskets(data, 'post')
+				}
+			})
 	}
 
 	return (
 		<CartContext.Provider
 			value={{
+				rescuingBasket,
+				requestBaskets,
 				basketItems,
 				total,
 				countProducts,
-				handleProduct,
-				deleteGame,
+				handleGamesBasket,
 				allGames,
 				cleaningBasket,
 				checkingCheckout,

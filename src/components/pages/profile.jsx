@@ -127,7 +127,7 @@ export default function Profile() {
 					`${import.meta.env.VITE_BACKEND_URL}/user/${loggedUser.id}`,
 					{ withCredentials: true }
 				)
-				.then(response => {
+				.then(() => {
 					navigate('/')
 				})
 				.catch(error => {
@@ -412,12 +412,11 @@ export default function Profile() {
 							<div className='universal-title'>Pedidos</div>
 							<div className='orders-wrapper'>
 								{ordersUser.map(order => {
-									const date = order.date
 									return (
 										<div key={order.id} className='order-item'>
 											<span>{`#${order.id}`}</span>
 											<div className='divs'>
-												Fecha: <span>{date}</span>
+												Fecha: <span>{order.date}</span>
 											</div>
 											<div className='divs'>
 												Artículos: <span>{order.qty}</span>

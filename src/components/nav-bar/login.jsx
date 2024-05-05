@@ -16,7 +16,7 @@ export default function Login({ handleIconLogin, messageRegister }) {
 	const [secondPhaseRegistration, setSecondPhaseRegistration] = useState(false)
 
 	const { loggedUser, setLoggedUser, handleLogout } = useLoginContext()
-	const { cleaningBasket } = useCartContext()
+	const { cleaningBasket, rescuingBasket } = useCartContext()
 
 	const handleChange = event => {
 		setLogin({
@@ -41,6 +41,7 @@ export default function Login({ handleIconLogin, messageRegister }) {
 						password: '',
 						name: ''
 					})
+					rescuingBasket(response.data.id)
 				}
 			})
 			.catch(error => {

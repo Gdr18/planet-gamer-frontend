@@ -9,7 +9,7 @@ export default function CardForm({ setSteps, loggedUser, setOrder }) {
 	const stripe = useStripe()
 	const elements = useElements()
 
-	const { cleaningBasket, setCheckingCheckout, countProducts, total } =
+	const { cleaningBasket, setCheckingCheckout, countProducts, total, requestBaskets } =
 		useCartContext()
 
 	const [errorText, setErrorText] = useState('')
@@ -57,16 +57,18 @@ export default function CardForm({ setSteps, loggedUser, setOrder }) {
 		} else {
 			axios
 				.post(
-					`${import.meta.env.VITE_BACKEND_URL}/order/${loggedUser.id}`,
+					`${import.meta.env.VITE_BACKEND_URL}/order`,
 					{
 						total,
-						qty: countProducts
+						qty: countProducts,
+						order_user_id: loggedUser.id
 					},
 					{ withCredentials: true }
 				)
 				.then(response => {
 					setCheckingCheckout(true)
 					cleaningBasket()
+					requestBaskets({ basket_user_id: loggedUser.id }, 'delete')
 					setSteps(3)
 					setOrder(response.data)
 				})
