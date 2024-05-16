@@ -28,7 +28,7 @@ export const CartProvider = ({ children }) => {
 				console.log('An error ocurred', error)
 			})
 	}
-	
+
 	const requestBasket = (game, idLoggedUser, methodHTTP) => {
 		axios({
 			method: methodHTTP,
@@ -79,7 +79,10 @@ export const CartProvider = ({ children }) => {
 			setBasketItems([...games])
 			idLoggedUser &&
 				requestBasket({ ...game, qty: basketGameQty }, idLoggedUser, 'put')
-		} else if ((operator === 'delete') || (operator === 'remove' && game.qty === 1)) {
+		} else if (
+			operator === 'delete' ||
+			(operator === 'remove' && game.qty === 1)
+		) {
 			const result = basketItems.filter(item => item.id !== game.id)
 			setTotal(total - Math.round(game.price * game.qty * 100) / 100)
 			setCountProducts(countProducts - game.qty)
@@ -113,28 +116,31 @@ export const CartProvider = ({ children }) => {
 		setTotal(0)
 		setCountProducts(0)
 		setBasketItems([])
-	}	
+	}
 
 	const rescuingBasket = idLoggedUser => {
 		const data = basketItems.map(basketItem => {
 			return {
-                basket_user_id: idLoggedUser,
-                basket_game_id: basketItem.id,
-                qty: basketItem.qty
-            }
+				basket_user_id: idLoggedUser,
+				basket_game_id: basketItem.id,
+				qty: basketItem.qty
+			}
 		})
 		axios
-			.get(`${import.meta.env.VITE_BACKEND_URL}/games-basket/${idLoggedUser}`, {
+			.get(`${import.meta.env.VITE_BACKEND_URL}/basket-games/${idLoggedUser}`, {
 				withCredentials: true
 			})
 			.then(response => {
 				if (response.data.length && !basketItems.length) {
 					setBasketItems(response.data)
 					setCountProducts(response.data.reduce((a, b) => a.qty + b.qty))
-					setTotal(response.data.reduce((a, b) => a.price * a.qty + b.price * b.qty))
+					setTotal(
+						response.data.reduce((a, b) => a.price * a.qty + b.price * b.qty)
+					)
 				} else if (!response.data.length && basketItems.length) {
 					requestBaskets(data, 'post')
 				} else if (response.data.length && basketItems.length) {
+					// TODO: Mezclar ambas listas de juegos.
 					requestBaskets({ basket_user_id: idLoggedUser }, 'delete')
 					requestBaskets(data, 'post')
 				}

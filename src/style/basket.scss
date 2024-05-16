@@ -20,7 +20,7 @@
 		background-color: $gris-claro;
 		border-radius: 2px;
 		.item-container {
-			width: 350px;
+			width: 450px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -35,13 +35,13 @@
 				align-items: center;
 				span {
 					padding: 5px;
-					font-size: .9em;
+					font-size: 0.9em;
 				}
 			}
 			.title-item {
+				text-align: center;
 				font-size: 0.8em;
-				max-width: 110px;
-				text-overflow: hidden;
+				max-width: 120px;
 				color: $gris-fuerte;
 			}
 			.basket-icon {
@@ -54,6 +54,10 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		span {
+			color: $gris-mas-claro;
+			font-size: 1.2em;
+		}
 		button {
 			width: 120px;
 			height: 35px;
