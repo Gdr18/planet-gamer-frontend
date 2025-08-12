@@ -26,6 +26,12 @@ export default function Products() {
 
 	const { allGames, handleGamesBasket } = useCartContext()
 	const { loggedUser } = useLoginContext()
+	const platformMap = {
+		ps4: 'PlayStation 4',
+		ps5: 'PlayStation 5',
+		xbox: 'Xbox Series',
+		switch: 'Nintendo Switch'
+	}
 
 	useEffect(() => {
 		renderingFirst()
@@ -36,7 +42,9 @@ export default function Products() {
 	}, [platform])
 
 	const renderingFirst = () => {
-		const gamesList = allGames.filter(game => game.platform_url === platform)
+		const gamesList = allGames.filter(
+			game => game.platform === platformMap[platform]
+		)
 		setFilteringGames(gamesList)
 		setLoading(false)
 	}
@@ -48,7 +56,7 @@ export default function Products() {
 		})
 		if (target.checked) {
 			const gamesList = allGames.filter(
-				game => game.platform_url === target.value
+				game => game.platform === platformMap[target.value]
 			)
 			setFilteringGames([...filteringGames, ...gamesList])
 		} else {
@@ -56,7 +64,7 @@ export default function Products() {
 				return null
 			} else {
 				const gamesList = filteringGames.filter(
-					game => game.platform_url !== target.value
+					game => game.platform !== platformMap[target.value]
 				)
 				setFilteringGames([...gamesList])
 			}
